@@ -28,7 +28,8 @@ class ecosystem:
                 RUNOUT_SCALING = 100, 
                 MONOD = False, 
                 MONOD_HALF_VELOCITY = None, 
-                MONOD_MAX_GROWTH = None,
+                MONOD_ALPHAMAX = None,
+                MONOD_BETAMAX = None,
                 save_every = 10,
                 result_folder = "results"
                 ):
@@ -52,14 +53,15 @@ class ecosystem:
         self.RUNOUT_SCALING = RUNOUT_SCALING
         self.MONOD = MONOD
         self.MONOD_HALF_VELOCITY = MONOD_HALF_VELOCITY
-        self.MONOD_MAX_GROWTH = MONOD_MAX_GROWTH
+        self.MONOD_ALPHAMAX = MONOD_ALPHAMAX
+        self.MONOD_BETAMAX = MONOD_BETAMAX
         self.save_every = save_every
         self.result_folder = result_folder
           
         self.time = 0
         self.RNG = np.random.default_rng(seed = self.SEED)
         self.strategies = np.empty((K_SPECIES_MAX, D_DIMENSION))
-        first_strategy = self.RNG.uniform(size=D_DIMENSION)
+        first_strategy = self.RNG.exponential(size=D_DIMENSION)
         self.strategies[0] = first_strategy/la.norm(first_strategy, ord=P_NORM) #vector containing the strategy vectors
         self.abundances = np.empty(K_SPECIES_MAX)
         self.abundances[0] = ABUNDANCE_SPAWN
@@ -74,7 +76,7 @@ class ecosystem:
         self.results_csv = result_folder+"/{}_results.csv".format(self.start)
         
         if GAMMA == "random":
-            GAMMA = self.RNG.normal(size=D_DIMENSION)
+            GAMMA = self.RNG.exponential(size=D_DIMENSION)
             self.GAMMA = GAMMA/la.norm(GAMMA, ord=P_NORM)
         
         if len(GAMMA) != D_DIMENSION:
@@ -98,7 +100,7 @@ class ecosystem:
         
         with open(result_folder+"/PARAMETER_SETTINGS.csv", 'a', newline='') as csvfile:
             testwriter = csv.writer(csvfile, delimiter=',')
-            testwriter.writerow([self.start, self.GAMMA, self.D_DIMENSION, self.P_NORM, self.NOISE, self.MEAN, self.SIGMA, self.K_SPECIES_MAX, self.ABUNDANCE_SPAWN, self.ABUNDANCE_DEATH, self.DEATH_RATE, self.ALPHA, self.BETA, self.DT_TIMESCALE, self.MEAN_INTERARRIVAL_TIME, self.SEED, self.WITH_RUNOUT, self.RUNOUT_SCALING, self.MONOD, self.MONOD_HALF_VELOCITY, self.MONOD_MAX_GROWTH, self.save_every])
+            testwriter.writerow([self.start, self.GAMMA, self.D_DIMENSION, self.P_NORM, self.NOISE, self.MEAN, self.SIGMA, self.K_SPECIES_MAX, self.ABUNDANCE_SPAWN, self.ABUNDANCE_DEATH, self.DEATH_RATE, self.ALPHA, self.BETA, self.DT_TIMESCALE, self.MEAN_INTERARRIVAL_TIME, self.SEED, self.WITH_RUNOUT, self.RUNOUT_SCALING, self.MONOD, self.MONOD_HALF_VELOCITY, self.MONOD_ALPHAMAX, self.MONOD_BETAMAX, self.save_every])
 
     
     def update_system(self):
