@@ -9,7 +9,7 @@ import numpy.linalg as la
 class ecosystem:
 
     def __init__(self, 
-                GAMMA = "random",
+                GAMMA = None,
                 D_DIMENSION = 5, 
                 P_NORM = 1, 
                 NOISE = "normal", 
@@ -75,7 +75,7 @@ class ecosystem:
         self.start = datetime.now().strftime("%d%m_%H%M%S")
         self.results_csv = result_folder+"/{}_results.csv".format(self.start)
         
-        if GAMMA == "random":
+        if GAMMA is None:
             GAMMA = self.RNG.exponential(size=D_DIMENSION)
             self.GAMMA = GAMMA/la.norm(GAMMA, ord=P_NORM)
         
