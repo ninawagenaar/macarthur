@@ -25,7 +25,7 @@ if __name__ == "__main__":
                 
         ax.set_xlabel("$s(\sigma_j)$")
         ax.set_ylabel("$t$")
-        ax.set_zlabel("$c(s(\sigma_j))$")
+        ax.set_zlabel("$p(s(\sigma_j))$")
         ax.invert_yaxis()
 
         plt.savefig(f"figD_probabilities_3D_P{P}.png")
@@ -41,8 +41,9 @@ if __name__ == "__main__":
             plt.plot(bin_centres, hist, linestyle=style, color="black", label="$t$ = " + str(int(key/1000)))
 
         # plt.legend()
-        plt.xlabel("$s(\sigma_j)$")
-        plt.ylabel("$c(s(\sigma_j))$")
+        plt.xlabel("$s_{skew}(\sigma_j)$")
+        plt.ylabel("$p(s_{skew}(\sigma_j))$")
+        plt.ylim([0,1])
         plt.tight_layout()
         plt.savefig(f"figD_probability_2D_P{P}_uni.png")
         # plt.show()

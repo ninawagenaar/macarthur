@@ -40,8 +40,8 @@ if __name__ == "__main__":
             plt.plot(bin_centres, hist, linestyle=style, color="black", label="$t$ = " + str(int(key/1000)))
 
         # plt.legend()
-        plt.xlabel("$s(\sigma_j)$")
-        plt.ylabel("$p(s(\sigma_j))$")
+        plt.xlabel("$s_{skew}(\sigma_j)$")
+        plt.ylabel("$p(s_{skew}(\sigma_j))$")
         plt.ylim([0,0.8])
         plt.tight_layout()
         plt.savefig(f"figD_probability_2D_P{P}_exp.png")
