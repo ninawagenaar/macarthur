@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.rcParams["mathtext.default"] = 'regular' #enable \mathcal{S}
+matplotlib.rcParams.update({'font.size': 22})
 
 from skewness_plot_preprocess import *
 
@@ -36,12 +37,13 @@ if __name__ == "__main__":
             hist, bin_edges = np.histogram(skewness_to_plot[key], bins=40, density=True)
             bin_centres = [((bin_edges[i-1] + bin_edges[i])/2) for i in range(1, len(bin_edges))]
 
-            plt.plot(bin_centres, hist, linestyle=style, color="black", label="$t$ = " + str(key))
+            plt.plot(bin_centres, hist, linestyle=style, color="black", label="$t$ = " + str(int(key/1000)))
 
-        plt.legend()
+        # plt.legend()
         plt.xlabel("$s(\sigma_j)$")
         plt.ylabel("$p(s(\sigma_j))$")
         plt.ylim([0,0.8])
+        plt.tight_layout()
         plt.savefig(f"figD_probability_2D_P{P}_exp.png")
-        plt.show()
+        # plt.show()
 

@@ -1,4 +1,8 @@
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.rcParams["mathtext.default"] = 'regular' #enable \mathcal{S}
+matplotlib.rcParams.update({'font.size': 22})
+
 
 from skewness_plot_preprocess import *
 
@@ -14,7 +18,7 @@ if __name__ == "__main__":
         ax = fig.add_subplot(projection='3d')
 
         for key in skewness_to_plot.keys():
-            hist, bin_edges = np.histogram(skewness_to_plot[key], bins=40, density=False)
+            hist, bin_edges = np.histogram(skewness_to_plot[key], bins=40, density=True)
             bin_centres = [((bin_edges[i-1] + bin_edges[i])/2) for i in range(1, len(bin_edges))]
 
             ax.plot(bin_centres, hist, zs=key, zdir='y', color="black")
@@ -24,21 +28,22 @@ if __name__ == "__main__":
         ax.set_zlabel("$c(s(\sigma_j))$")
         ax.invert_yaxis()
 
-        plt.savefig(f"figD_absolute_3D_P{P}.png")
-        plt.show()
+        plt.savefig(f"figD_probabilities_3D_P{P}.png")
+        # plt.show()
         plt.clf()
         
 
         linestyles = ['dotted', (0,(2,2)), (0,(3,3)), (0,(4,2)), (0,(5,1)),'solid']
         for key, style in zip(skewness_to_plot.keys(), linestyles):
-            hist, bin_edges = np.histogram(skewness_to_plot[key], bins=40, density=False)
+            hist, bin_edges = np.histogram(skewness_to_plot[key], bins=40, density=True)
             bin_centres = [((bin_edges[i-1] + bin_edges[i])/2) for i in range(1, len(bin_edges))]
 
-            plt.plot(bin_centres, hist, linestyle=style, color="black", label="$t$ = " + str(key))
+            plt.plot(bin_centres, hist, linestyle=style, color="black", label="$t$ = " + str(int(key/1000)))
 
-        plt.legend()
+        # plt.legend()
         plt.xlabel("$s(\sigma_j)$")
         plt.ylabel("$c(s(\sigma_j))$")
-        plt.savefig(f"figD_absolute_2D_P{P}_uni.png")
-        plt.show()
+        plt.tight_layout()
+        plt.savefig(f"figD_probability_2D_P{P}_uni.png")
+        # plt.show()
 
