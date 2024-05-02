@@ -4,6 +4,9 @@ from datetime import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy.linalg as la
+import matplotlib
+matplotlib.rcParams["mathtext.default"] = 'regular' #enable \mathcal{S}
+matplotlib.rcParams.update({'font.size': 16})
 
 
 class ecosystem:
@@ -21,7 +24,7 @@ class ecosystem:
                 DEATH_RATE = 0.1,
                 ALPHA = 0.005,
                 BETA = 0.01,
-                DT_TIMESCALE = 0.001,
+                DT_TIMESCALE = 0.1,
                 MEAN_INTERARRIVAL_TIME = 20.0, #Average time between speciation events
                 SEED = None,
                 WITH_RUNOUT = False, 
@@ -246,3 +249,19 @@ class ecosystem:
 
 if __name__ == "__main__":
     print("Speciating MacArthur")
+    cutoff = 0
+
+    MA_exampleL2 = ecosystem(P_NORM=2, K_SPECIES_MAX=50, SEED=164927, WITH_RUNOUT=True, result_folder="figs_intro_withcode")
+    MA_exampleL2.run_sim()
+    df = pd.read_csv(MA_exampleL2.results_csv)
+
+    for j in range(MA_exampleL2.K_SPECIES_MAX):
+        key = 'species'+str(j)
+        plt.semilogy(df.time[cutoff:], df[key][cutoff:], c=(j/(1.2*MA_exampleL2.K_SPECIES_MAX), j/(1.2*MA_exampleL2.K_SPECIES_MAX), j/(1.2*MA_exampleL2.K_SPECIES_MAX)))
+
+    plt.xlabel("$t$")
+    plt.ylabel("$n_j$")
+    plt.tight_layout()
+    # plt.savefig(MA_exampleL2.result_folder+"/example_run_L2.png".format(MA_exampleL2.start))
+    plt.show()
+

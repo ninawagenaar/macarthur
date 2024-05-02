@@ -3,8 +3,9 @@ import numpy.linalg as la
 import matplotlib
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D 
-import scipy
-matplotlib.rcParams.update({'font.size': 12})
+import scipy.special
+matplotlib.rcParams["mathtext.default"] = 'regular' #enable \mathcal{S}
+matplotlib.rcParams.update({'font.size': 16})
 
 
 def volume_ball(D_DIMENSION, P_NORM, RADIUS=1):
@@ -29,13 +30,26 @@ if __name__ == "__main__":
         VOL_L15[i] = volume_ball(DIMENSION, 1.5)
         VOL_L2[i] = volume_ball(DIMENSION, 2)
 
+    plt.plot(DIM_LIST, VOL_L05, label="$L_{0.5}$, R=1", ls='solid', c="black")
+    plt.plot(DIM_LIST, VOL_L1, label="$L_1$, R=1", ls=(0,(5,1)), c="black")
+    plt.plot(DIM_LIST, VOL_L15, label="$L_{1.5}$, R=1", ls=(0,(2,2)), c="black")
+    plt.plot(DIM_LIST, VOL_L2, label="$L_2$, R=1", ls="dotted", c="black")
+    # plt.legend()
+    plt.xlabel("$d$")
+    plt.ylabel("$Vol_{ball}$")
+    plt.tight_layout()
+    plt.savefig("nball_volume_decay_black.png")
+    if show_figures: plt.show()
+    plt.clf()
+
+
     plt.plot(DIM_LIST, VOL_L05, label="$L_{0.5}$, R=1", c="red")
     plt.plot(DIM_LIST, VOL_L1, label="$L_1$, R=1", c="blue")
     plt.plot(DIM_LIST, VOL_L15, label="$L_{1.5}$, R=1", c="orange")
     plt.plot(DIM_LIST, VOL_L2, label="$L_2$, R=1", c="purple")
     plt.legend()
-    plt.xlabel("Dimensions")
-    plt.ylabel("Volume")
+    plt.xlabel("$d$")
+    plt.ylabel("$Vol_{ball}$")
     plt.tight_layout()
     if show_figures: plt.show()
     plt.clf()

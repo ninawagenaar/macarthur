@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D 
 import scipy
 from scipy import spatial
-matplotlib.rcParams.update({'font.size': 12})
+matplotlib.rcParams.update({'font.size': 16})
+matplotlib.rcParams["mathtext.default"] = 'regular' #enable \mathcal{S}
 
 
 # Set to True if saving of figures is desired
@@ -166,23 +167,26 @@ if __name__ == "__main__":
     on the 2D unit circle. """
     X = np.linspace(0, 1, 10000)
     Y1, Y2 = circle(X, 0.5)
-    plt.plot(X, Y1, c="red", label="$L^{0.5}$\nConvex")
+    plt.plot(X, Y1, c="black", ls="solid", label="$L^{0.5}$\nConvex")
     # plt.plot(X, Y2, c="red")
     Y1, Y2 = circle(X, 1)
-    plt.plot(X, Y1, c="blue", label="$L^1$\nLinear")
+    plt.plot(X, Y1, c="black", ls="dashed", label="$L^1$\nLinear")
     # plt.plot(X, Y2, c="blue")
     Y1, Y2 = circle(X, 1.5)
     # plt.plot(X, Y1, c="orange", label="$p$ = 1.5")
     # plt.plot(X, Y2, c="orange")
     Y1, Y2 = circle(X, 2)
-    plt.plot(X, Y1, c="purple", label="$L^2$\nConcave")
+    plt.plot(X, Y1, c="black", ls="dotted", label="$L^2$\nConcave")
     # plt.plot(X, Y2, c="purple")
-    plt.xlim([-0.1,1.1])
-    plt.ylim([-0.1,1.1])
+    plt.xlim([-0.05,1.05])
+    plt.ylim([-0.05,1.05])
+    plt.xlabel("$\sigma_{1j}$")
+    plt.ylabel("$\sigma_{2j}$")
     ax = plt.gca()
-    ax.legend(loc=(0.8, 0.6))
+    # ax.legend(loc=(0.8, 0.6))
     ax.set_aspect('equal', adjustable='box')
     plt.tight_layout()
 
     if show_figures: plt.show()
+    plt.savefig("tradeoffs_black.png")
     plt.clf()

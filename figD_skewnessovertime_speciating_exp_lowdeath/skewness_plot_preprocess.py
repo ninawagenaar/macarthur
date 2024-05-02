@@ -9,7 +9,7 @@ from collections import defaultdict
 resources = 10
 species = 500
 modelruns = 100
-PNORMS = [0.9, 1, 1.1]
+PNORMS = [0.5, 0.9, 1, 1.1, 2]
 noises = [0.01, 0.1, 1]
 timesteps = 10000
 # folder = "figD_skewnessovertime_nonspeciating"
