@@ -206,6 +206,13 @@ class ecosystem:
         except:
             raise ValueError("All species are extinct")
 
+            strategies_csv = self.result_folder+"/{}_strategies.csv".format(self.start)
+            with open(strategies_csv, 'a', newline='') as csvfile:
+                testwriter = csv.writer(csvfile, delimiter=',')
+                testwriter.writerow(["ID"] + ["strat_res"+str(i) for i in range(self.D_DIMENSION)] + ["ancestor"] + ["alive_at_end"])
+                for ID, strategy in enumerate(self.strategies):
+                    testwriter.writerow([ID] + [strat for strat in strategy] + [self.lineage[ID]] + [bool(self.abundances[ID])])
+
         if self.NOISE == "normal":
             self.strategies[self.current_event] = self.strategies[ancestor_ID] + self.RNG.normal(loc=self.MEAN, scale=self.SIGMA, size=self.D_DIMENSION)
             for i, strat in enumerate(self.strategies[self.current_event]):
