@@ -5,25 +5,28 @@ Notebooks were used as a testing environment and not used for final simulations.
 
 
 
-# PARAMETERS AND TERMINOLOGY
-P_NORM          value of p for finding Lp norm \
-K_SPECIES_MAX   maximum number of species at start simulation (in nonspeciating)
-                number of speciation events (in speciating) \
-D_DIMENSION     number of resources in system \
-GAMMA           vector with resource influx rates \
-NOISE           distribution of noise, constant "normal" \
-MEAN            mean of evolutionary noise, constant at 0 \
-SIGMA           standard deviation of noise \
-ABUNDANCE_SPAWN abundance of newly spawned species, constant 0.01 \
-ABUNDANCE_DEATH abundance below which species is considered extinct, constant 0.001 \
-DEATH_RATE      species death rate \
-ALPHA           rate of reproduction, constant 0.005 \
-BETA            rate of consumption, constant 0.01 \
-DT_TIMESCALE    size of Euler step \
-MEAN_INTERARRIVAL_TIME      average time between speciation events \
-SEED            seed for random variables \
-WITH_RUNOUT     boolean determining if system will continue running after last speciation event \
-RUNOUT_SCALING  amount of time the system will continue running after last speciation event \
+# PARAMETERS
+
+|Name in Github | Symbol in report | Description|
+|:---|:---|:---|
+|P_NORM   |$p$|       scaling in $L^p$ norm \|
+|K_SPECIES_MAX |$K_{init}$|  maximum number of species at start simulation (in nonspeciating)|
+|K_SPECIES_MAX |$K_{max}$|  number of speciation events (in speciating)
+|D_DIMENSION  |$d$|   number of resources in system \|
+|GAMMA    |$\gamma$|       vector with resource influx rates \|
+|NOISE    |n.a.|       distribution of noise, constant "normal" \|
+|MEAN       |n.a.|      mean of evolutionary noise, constant at 0 \|
+|SIGMA     |$\eta$|      standard deviation of noise \|
+|ABUNDANCE_SPAWN |n.a.| abundance of newly spawned species, constant 0.01 \|
+|ABUNDANCE_DEATH |n.a.| abundance below which species is considered extinct, constant 0.001| \
+|DEATH_RATE  |$\delta$|    species death rate \|
+|ALPHA  |$\alpha$|         rate of reproduction, constant 0.005 \|
+|BETA     |$\beta$|       rate of consumption, constant 0.01 \|
+|DT_TIMESCALE  |$h$|  size of Euler step \|
+|MEAN_INTERARRIVAL_TIME  | $lambda$ |  average time between speciation events \|
+|SEED       |n.a.|      seed for random variables \|
+|WITH_RUNOUT   |n.a.|   boolean determining if system will continue running after last| speciation event \
+|RUNOUT_SCALING  |$\frac{\tau}{\lambda}$| amount of time the system will continue running after final speciation event |
 
 
 
