@@ -1,7 +1,7 @@
 # macarthur
 These scripts and notebooks are used to study the evolutionary trajectories in MacArthur resource-consumer systems.
 
-Notebooks were used as a testing environment and not used for final simulations.
+Notebooks were used as a testing environment and not used for any simulations.
 
 
 
@@ -10,8 +10,8 @@ Notebooks were used as a testing environment and not used for final simulations.
 |Name in Github | Symbol in report | Description|
 |:---|:---|:---|
 |P_NORM   |$p$|       scaling in $L^p$ norm |
-|K_SPECIES_MAX |$K_{init}$|  maximum number of species at start simulation (in nonspeciating)|
-|K_SPECIES_MAX |$K_{max}$|  number of speciation events (in speciating)
+|K_SPECIES_MAX |$K_{init}$|  maximum number of species at start simulation (in nonspeciating MA)|
+|K_SPECIES_MAX |$K_{max}$|  number of speciation events (in speciating MA)
 |D_DIMENSION  |$d$|   number of resources in system |
 |GAMMA    |$\gamma$|       vector with resource influx rates |
 |NOISE    |n.a.|       distribution of noise, constant "normal" |
@@ -27,6 +27,7 @@ Notebooks were used as a testing environment and not used for final simulations.
 |SEED       |n.a.|      seed for random variables |
 |WITH_RUNOUT   |n.a.|   if True, system will continue running after last speciation event  |
 |RUNOUT_SCALING  |$\frac{\tau}{\lambda}$| amount of time the system will continue running after final speciation event, determined by the RUNOUT_SCALING multiplied with the MEAN_INTERARRIVAL_TIME |
+|save_every | n.a.| Indicates interval between timepoints in results
 
 
 
@@ -55,4 +56,11 @@ Contains scripts and figures used for showing the time evolution of the system l
   * Figures in not_weighted correspond to figures 3.10, 3.11, 3.12, and 3.13 in the report. This folder contains many additional figures, both for parameters and method of studying $S$.
   * Figures in weighted correspond to figures 3.14 and 3.15 in the report. This folder contains additional figures for different methods of studying $S$.
 
-# FILES
+<!-- # FILES
+
+* Model objects: MA_nonspeciating_abundances.py, MA_speciating_abundances.py, MA_speciating_degree_specialisation.py, MA_speciating_degree_specialisation_weighted. Files contain the ecosystem class used to implement a MA model. Results either consist of abundances, system level degree of specialisation using eq. 2.17 (not weighted) or eq. 2.18 (weighted).
+* Simulations:
+
+$$S_m = \frac{\sum^k_j(s_m(\sigma_j)) }{k} $$ [eq. 2.17]
+
+$$S_m = \frac{\sum^k_j(s_m(\sigma_j) \cdot n_j}{\sum^k_j n_j} $$ [eq. 2.18] -->
