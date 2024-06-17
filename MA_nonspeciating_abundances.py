@@ -46,6 +46,7 @@ class ecosystem_nonspeciating:
         self.time = 0
         self.RNG = np.random.default_rng(seed=self.SEED)
         self.strategies = self.RNG.exponential(size=(K_SPECIES_MAX, D_DIMENSION))
+        # self.strategies = self.RNG.uniform(size=(K_SPECIES_MAX, D_DIMENSION))
         for i, strat in enumerate(self.strategies):
             self.strategies[i] = strat/la.norm(strat, ord=P_NORM) #vector containing the strategy vectors
         self.abundances = np.ones(K_SPECIES_MAX)  * ABUNDANCE_SPAWN

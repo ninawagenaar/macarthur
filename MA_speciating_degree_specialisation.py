@@ -161,7 +161,7 @@ class ecosystem:
                     self.abundances[i] = 0
                     self.alive[i] = 0
 
-            '''save results every indicated timestep'''
+            '''save results every indicated timestep, results not weighted by biomass'''
             if round(self.time, int(round(np.log10(1/self.DT_TIMESCALE),0))) % self.save_every == 0:
                 self.RESULTS[self.STORAGE_COUNTER, 0] = self.time #time
                 self.RESULTS[self.STORAGE_COUNTER, 1] = np.mean(self.dist_to_generalist[:self.current_event], where=[bool(i) for i in self.alive[:self.current_event]])

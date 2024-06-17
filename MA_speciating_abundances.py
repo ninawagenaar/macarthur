@@ -5,8 +5,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy.linalg as la
 import matplotlib
+from colors import *
 matplotlib.rcParams["mathtext.default"] = 'regular' #enable \mathcal{S}
-matplotlib.rcParams.update({'font.size': 16})
+matplotlib.rcParams.update({'font.size': 24})
+plt.rcParams["figure.figsize"] = (20, 6)
 
 
 class ecosystem:
@@ -204,15 +206,17 @@ class ecosystem:
             probabilities = self.abundances[:self.current_event] / np.sum(self.abundances[:self.current_event])
             ancestor_ID = self.RNG.choice(self.current_event, p=probabilities)
         except:
-            raise ValueError("All species are extinct")
-
             strategies_csv = self.result_folder+"/{}_strategies.csv".format(self.start)
+            '''Don't forget to move this back!'''
             with open(strategies_csv, 'a', newline='') as csvfile:
                 testwriter = csv.writer(csvfile, delimiter=',')
                 testwriter.writerow(["ID"] + ["strat_res"+str(i) for i in range(self.D_DIMENSION)] + ["ancestor"] + ["alive_at_end"])
                 for ID, strategy in enumerate(self.strategies):
                     testwriter.writerow([ID] + [strat for strat in strategy] + [self.lineage[ID]] + [bool(self.abundances[ID])])
 
+            raise ValueError("All species are extinct")
+
+            
         if self.NOISE == "normal":
             self.strategies[self.current_event] = self.strategies[ancestor_ID] + self.RNG.normal(loc=self.MEAN, scale=self.SIGMA, size=self.D_DIMENSION)
             for i, strat in enumerate(self.strategies[self.current_event]):
@@ -255,20 +259,27 @@ class ecosystem:
                 testwriter.writerow([ID] + [strat for strat in strategy] + [self.lineage[ID]] + [bool(self.abundances[ID])])
 
 if __name__ == "__main__":
+
     print("Speciating MacArthur")
     cutoff = 0
-
     MA_exampleL2 = ecosystem(P_NORM=2, K_SPECIES_MAX=50, SEED=164927, WITH_RUNOUT=True, result_folder="figs_intro_withcode")
     MA_exampleL2.run_sim()
     df = pd.read_csv(MA_exampleL2.results_csv)
 
+    plt.gca().set_prop_cycle(colors_cycler)
+    plt.tight_layout()
+
     for j in range(MA_exampleL2.K_SPECIES_MAX):
         key = 'species'+str(j)
-        plt.semilogy(df.time[cutoff:], df[key][cutoff:], c=(j/(1.2*MA_exampleL2.K_SPECIES_MAX), j/(1.2*MA_exampleL2.K_SPECIES_MAX), j/(1.2*MA_exampleL2.K_SPECIES_MAX)))
+        plt.semilogy(df.time[cutoff:], df[key][cutoff:])
+        # plt.axis('off')
+        # plt.savefig(MA_exampleL2.result_folder+"/forslides/example_run_j{1}.png".format(MA_exampleL2.start, j), dpi=300)
+        # plt.semilogy(df.time[cutoff:], df[key][cutoff:], c=(j/(1.2*MA_exampleL2.K_SPECIES_MAX), j/(1.2*MA_exampleL2.K_SPECIES_MAX), j/(1.2*MA_exampleL2.K_SPECIES_MAX)))
 
-    plt.xlabel("$t$")
-    plt.ylabel("$n_j$")
+    
+    plt.xlabel("time")
+    plt.ylabel("species abundance")
     plt.tight_layout()
-    # plt.savefig(MA_exampleL2.result_folder+"/example_run_L2.png".format(MA_exampleL2.start))
+    plt.savefig(MA_exampleL2.result_folder+"/example_run_L2_color.png".format(MA_exampleL2.start), dpi=300)
     plt.show()
 
